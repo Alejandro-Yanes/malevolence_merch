@@ -5,7 +5,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid black;
   margin: 0 7.5px 15px;
   height: 300px;
   overflow: hidden;
@@ -60,6 +59,7 @@
       margin-bottom: 6px;
       font-size: 22px;
       color: #4a4a4a;
+      letter-spacing: 1px;
     }
 
     .subtitle {
