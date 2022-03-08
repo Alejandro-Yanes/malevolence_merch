@@ -1,14 +1,19 @@
 import React  , {useState} from 'react'
+import FormInput from '../form-input/form-input.component.jsx'
+import CustomButton from '../custom-button/custom-button.component.jsx'
+import './sign-in.styles.scss'
 
 const SignIn =  () => {
     let [email , setEmail]  = useState("");
     let [password , setPassword] = useState("");
 
+    console.log(email)
+    console.log(password)
 
     const handleSubmit = (event)  => {
         event.preventDefault()
 
-        setEmail("xx")
+        setEmail("")
         setPassword("")
     }
 
@@ -20,16 +25,13 @@ const SignIn =  () => {
 
     return(
         <div className="sign-in">
-            <h2 className="title"></h2>
+            <h2 className="title">I already have an account</h2>
             <span>Sign in with your email and password</span>
             
             <form  onSubmit={handleSubmit}>
-                <input name="email" type="email" value={email} onChange={handleChange}  required  />
-                <label>Email</label>
-                <input name="password" type="password" value={password}  onChange={handleChange} required  />
-                <label>password</label>
-
-                <input type="submit" value="Submit Form"/>
+                <FormInput name="email" type="email" value={email} handleChange={handleChange} label={'Email'}  required  />
+                <FormInput name="password" type="password" value={password}  handleChange={handleChange} label={'Password'}  required  />
+                <CustomButton type="submit">Submit Form</CustomButton>
             </form>
         </div>
     )
