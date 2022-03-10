@@ -1,26 +1,45 @@
 import React  , {useState} from 'react'
 import FormInput from '../form-input/form-input.component.jsx'
 import CustomButton from '../custom-button/custom-button.component.jsx'
+import { signInWithGoogle , addUser , auth} from '../../firebase/firebase.utils.js'
 import './sign-in.styles.scss'
+import { useNavigate } from 'react-router-dom'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+
+
+
 
 const SignIn =  () => {
-    let [email , setEmail]  = useState("");
-    let [password , setPassword] = useState("");
+    let [info , setInfo]  = useState({ email : '' , password : ''});
 
-    console.log(email)
-    console.log(password)
+    const { email , password } = info
 
-    const handleSubmit = (event)  => {
+    const navigate = useNavigate()
+
+    const handleSubmit = async (event)  => {
         event.preventDefault()
 
-        setEmail("")
-        setPassword("")
+       signInWithEmailAndPassword(auth , email , password)
+            .then((userCredential) => {
+                const user = userCredential.user
+                setInfo({
+                    email: '',
+                    password: ''
+                })
+            })
+            .catch((error) => {
+                console.error(error)
+            })
+
+        
     }
 
     const handleChange =  (event)  =>  {
-        (event.target.name === "email")  ?
-        setEmail(event.target.value) :
-        setPassword(event.target.value)
+        const { name , value } = event.target
+        setInfo({
+            ...info,
+            [name] : value 
+        })
     }
 
     return(
@@ -31,7 +50,10 @@ const SignIn =  () => {
             <form  onSubmit={handleSubmit}>
                 <FormInput name="email" type="email" value={email} handleChange={handleChange} label={'Email'}  required  />
                 <FormInput name="password" type="password" value={password}  handleChange={handleChange} label={'Password'}  required  />
-                <CustomButton type="submit">Submit Form</CustomButton>
+                <div className="buttons-flex">
+                    <CustomButton >Sign in</CustomButton>
+                    <CustomButton onClick={()  =>  signInWithGoogle(navigate)} isGoogleSignIn >Sign in with google</CustomButton>
+                </div>
             </form>
         </div>
     )

@@ -11,17 +11,27 @@
     padding: 25px;
   }
 
-  .options {
-    width: 50%;
-    height: 100%;
+  .options-flex {
     display: flex;
-    align-items: center;
-    justify-content: flex-end;
+    flex-direction: column;
 
-    .option {
-      padding: 10px 15px;
-      text-decoration: none;
-      color: black;
+    .options {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      cursor: pointer;
+
+      .option {
+        padding: 10px 15px;
+        text-decoration: none;
+        color: black;
+      }
+    }
+
+    .user-loged-in {
+      padding-right: 15px;
+      align-self: flex-end;
     }
   }
 }
