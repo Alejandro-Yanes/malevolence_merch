@@ -1,4 +1,4 @@
-import React  , {useState} from 'react'
+import React  , {useState } from 'react'
 import FormInput from '../form-input/form-input.component.jsx'
 import CustomButton from '../custom-button/custom-button.component.jsx'
 import { signInWithGoogle , addUser , auth} from '../../firebase/firebase.utils.js'
@@ -9,12 +9,13 @@ import { signInWithEmailAndPassword } from 'firebase/auth'
 
 
 
-const SignIn =  () => {
+const SignIn =  ({currentUser}) => {
     let [info , setInfo]  = useState({ email : '' , password : ''});
 
     const { email , password } = info
 
     const navigate = useNavigate()
+
 
     const handleSubmit = async (event)  => {
         event.preventDefault()
@@ -26,11 +27,13 @@ const SignIn =  () => {
                     email: '',
                     password: ''
                 })
+                 navigate('/')
             })
             .catch((error) => {
                 console.error(error)
             })
 
+       
         
     }
 
@@ -52,7 +55,7 @@ const SignIn =  () => {
                 <FormInput name="password" type="password" value={password}  handleChange={handleChange} label={'Password'}  required  />
                 <div className="buttons-flex">
                     <CustomButton >Sign in</CustomButton>
-                    <CustomButton onClick={()  =>  signInWithGoogle(navigate)} isGoogleSignIn >Sign in with google</CustomButton>
+                    <CustomButton onClick={() => signInWithGoogle(navigate)} isGoogleSignIn >Sign in with google</CustomButton>
                 </div>
             </form>
         </div>
