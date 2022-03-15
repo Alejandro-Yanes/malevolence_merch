@@ -12,6 +12,20 @@
     background-position: center;
     margin-bottom: 5px;
     position: relative;
+    opacity: 0.7;
+    transition: all 0.2s;
+
+    .custom-button {
+      opacity: 0;
+    }
+
+    &:hover {
+      opacity: 1;
+
+      .custom-button {
+        opacity: 1;
+      }
+    }
   }
 
   .collection-footer {

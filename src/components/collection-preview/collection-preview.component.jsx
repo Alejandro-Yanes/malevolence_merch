@@ -18,8 +18,8 @@ const  CollectionPreview = ({title  , id , items})  => {
 
                 <h1  className='title'>{title}</h1>
                 <motion.div drag='x' dragConstraints={{right : 0 , left: -width}} className='preview'  style={{display:'flex'}} ref={carousel} whileTap={{cursor: "grabbing"}}>
-                {items.map(({...collectionItemProps}) => (
-                    <CollectionItem  {...collectionItemProps} />
+                {items.map((item) => (
+                    <CollectionItem  key={item.id} item={item} />
                 ))}     
                 </motion.div>
 
