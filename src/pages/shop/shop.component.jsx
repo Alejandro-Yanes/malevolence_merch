@@ -1,20 +1,14 @@
-import React from 'react'
-import { useState } from 'react'
-import SHOP_DATA from  './shop.data'
-import CollectionPreview from '../../components/collection-preview/collection-preview.component'
+import React from "react";
+import { createStructuredSelector } from "reselect";
+import { connect } from "react-redux";
+import CollectionsOverview from "../../components/collections-overview/collections-overview.component";
 
-const ShopPage = ()  =>  {
+const ShopPage = () => {
+  return (
+    <div>
+      <CollectionsOverview />
+    </div>
+  );
+};
 
-    const [collections, setCollections] = useState(SHOP_DATA)
-
-    return(
-        <div>
-            <h1>Collections</h1>
-                {collections.map(({id ,  ...otherCollectionProps}) => (
-                    <CollectionPreview key={id} {...otherCollectionProps}/>
-                ) )}
-        </div>
-    )
-}
-
-export default ShopPage
+export default ShopPage;
