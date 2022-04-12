@@ -9,6 +9,14 @@
   height: 300px;
   overflow: hidden;
 
+  @media screen and (max-width: 1050px) {
+    min-width: 32%;
+  }
+
+  @media screen and (max-width: 800px) {
+    min-width: 100%;
+  }
+
   &:hover {
     cursor: pointer;
 
@@ -25,6 +33,10 @@
 
   &.large {
     height: 380px;
+
+    @media screen and (max-width: 1050px) {
+      height: 300px;
+    }
   }
 
   &:first-child {
@@ -40,6 +52,10 @@
     height: 100%;
     background-position: center;
     background-size: cover;
+
+    @media screen and (max-width: 600px) {
+      display: none;
+    }
   }
 
   .content {

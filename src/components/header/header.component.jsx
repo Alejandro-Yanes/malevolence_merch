@@ -1,59 +1,64 @@
-import React  from 'react'
-import './header.styles.scss'
-import  {ReactComponent  as  Logo}  from '../../assets/crown.svg'
-import CartIcon from '../cart-icon/cart-icon.component'
-import CartDropdown from '../cart-dropdown/cart-dropdown.component'
-import { selectCartHidden } from '../../redux/cart/cart.selectors'
-import { selectCurrentUser } from '../../redux/user/user.selector'
+import React from "react";
+import "./header.styles.scss";
+import { ReactComponent as Logo } from "../../assets/crown.svg";
+import CartIcon from "../cart-icon/cart-icon.component";
+import CartDropdown from "../cart-dropdown/cart-dropdown.component";
+import { selectCartHidden } from "../../redux/cart/cart.selectors";
+import { selectCurrentUser } from "../../redux/user/user.selector";
+import { signOutStart } from "../../redux/user/user.actions";
 
-import { Link }  from  'react-router-dom'
-import { auth } from '../../firebase/firebase.utils'
-import { signOut } from 'firebase/auth'
-import { connect } from 'react-redux'
-import { createStructuredSelector } from 'reselect'
+import { auth } from "../../firebase/firebase.utils";
+import { signOut } from "firebase/auth";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
+import {
+  HeaderContainer,
+  LogoContainer,
+  OptionsFlex,
+  OptionsContainer,
+  OptionLink,
+  OptionDiv,
+  UserLogedIn,
+} from "./header.styles";
 
+const Header = ({ currentUser, show, hidden, signOutStart }) => {
+  return (
+    <HeaderContainer>
+      <LogoContainer to="/">
+        <Logo className="logo" />
+      </LogoContainer>
+      <OptionsFlex>
+        <OptionsContainer>
+          <OptionLink to="/shop">SHOP</OptionLink>
+          <OptionLink to="/contact">CONTACT</OptionLink>
 
-const Header = ({ currentUser , show , hidden})  =>  {
-    return(
-            <div className="header">
-                <Link className="logo-container" to="/">
-                    <Logo className="logo"/>
-                </Link>
-                <div className="options-flex" >
-                    <div className="options">
-                        <Link className="option"  to="/shop">SHOP</Link>    
-                        <Link className="option"  to="/contact">CONTACT</Link> 
-                        
-                        {
-                            currentUser 
-                            ?   
-                                <div className='option' 
-                                    onClick={() => signOut(auth).then(() => {
-                                            console.log('sign out worked')})
-                                        .catch((error) => {
-                                            console.log('error happened' , error)}) }>
-                                        SIGN OUT
-                                    </div> 
-                            : <Link className="option"  to="/signin">SIGN IN</Link>  
-                        }
-                        <CartIcon />
-                    </div>
-                    {(hidden) ?  null : <CartDropdown/>}
-                    
-                        {(currentUser) ? 
-                            <span className='user-loged-in'> User : {currentUser.displayName}</span>
-                            : ''
-                        }  
-                </div>
-            </div>
-            )
-        }
+          {currentUser ? (
+            <OptionDiv onClick={signOutStart}>SIGN OUT</OptionDiv>
+          ) : (
+            <OptionLink to="/signin">SIGN IN</OptionLink>
+          )}
+          <CartIcon />
+        </OptionsContainer>
+        {hidden ? null : <CartDropdown />}
+
+        {currentUser ? (
+          <UserLogedIn> User : {currentUser.displayName}</UserLogedIn>
+        ) : (
+          ""
+        )}
+      </OptionsFlex>
+    </HeaderContainer>
+  );
+};
 
 const mapStateToProps = createStructuredSelector({
-    currentUser :selectCurrentUser ,
-    hidden : selectCartHidden 
-})
+  currentUser: selectCurrentUser,
+  hidden: selectCartHidden,
+});
 
+const mapDispatchToProps = (dispatch) => ({
+  signOutStart: () => dispatch(signOutStart()),
+});
 
-export default connect(mapStateToProps)(Header)
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

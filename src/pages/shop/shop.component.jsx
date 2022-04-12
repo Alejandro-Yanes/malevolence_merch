@@ -1,12 +1,10 @@
-import React from "react";
-import { createStructuredSelector } from "reselect";
-import { connect } from "react-redux";
-import CollectionsOverview from "../../components/collections-overview/collections-overview.component";
+import React, { useEffect, useState } from "react";
+import CollectionOverviewContainer from "../../components/collections-overview/collections.overview.container";
 
 const ShopPage = () => {
   return (
     <div>
-      <CollectionsOverview />
+      <CollectionOverviewContainer />
     </div>
   );
 };
